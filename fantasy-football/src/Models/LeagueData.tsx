@@ -1,6 +1,7 @@
 export interface LeagueData {
-    internalId: number,
-    name: string,
-    id: number,
-    year: number
+    name: string;
+    yahooLeagueId: string;
+    internalId: number;
+    year: number;
+    currentWeek: number;
 }

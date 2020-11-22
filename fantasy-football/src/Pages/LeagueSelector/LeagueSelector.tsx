@@ -21,7 +21,7 @@ class LeagueSelector extends React.Component<RouteComponentProps> {
     let info = _.uniqBy(leagues, 'internalId');
     info.forEach((element: LeagueData) => {
       let item = (
-        <div className="hover-div p-col p-shadow-10" style={{ margin: 25, padding:0, cursor: "pointer" }} onClick={() => this.nextPath(`/League/${element.internalId}/${this.currentYear}`)}>
+        <div className="hover-div p-col p-shadow-10" style={{ margin: 25, padding:0, cursor: "pointer" }} onClick={() => this.nextPath(`/League/${element.internalId}`)}>
           <div style={{display:"flex", alignItems:"center", textAlign: "center", justifyContent: "center", width:"100%", height:350}} className="hover-div-text">
             <h1>{element.name}</h1>
           </div>
