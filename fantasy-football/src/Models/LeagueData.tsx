@@ -1,4 +1,4 @@
-export interface LeagueData {
+export interface LeagueDataModel {
     name: string;
     yahooLeagueId: string;
     internalId: number;

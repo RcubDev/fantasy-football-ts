@@ -1,6 +1,6 @@
-import { LeagueData } from "../Models/LeagueData";
+import { LeagueDataModel } from "../Models/LeagueData";
 
-const leagues: Array<LeagueData> = [
+const leagues: Array<LeagueDataModel> = [
     {
         name: "Ryan has excel spreadsheets",
         yahooLeagueId: "528423",
@@ -14,7 +14,7 @@ const leagues: Array<LeagueData> = [
         internalId: 2,
         year: 2020,
         currentWeek: 11
-    },
+    }
 ];
 
 export default leagues;
