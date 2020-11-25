@@ -9,4 +9,5 @@ export interface ScoreboardModelExtended {
     matchups: MatchupModel[];
     week: string;
     leagueId: string;
+    year: string;
 }
