@@ -8,7 +8,7 @@ import { ensure } from "../../../Helpers/TypeScriptHelpers";
 
 type YearSelectorProps = {
     internalLeagueId: number,
-    filterLeagues: () => void
+    setYearsCallback: (years: number[]) => void
 }
 
 type YearSelectorState = {
@@ -46,6 +46,7 @@ class LeagueYearSelector extends React.Component<YearSelectorProps, YearSelector
         let stateYear = ensure(allYears.find(x => x.year === year));
         stateYear.checked = !stateYear.checked;
         this.setState({years: allYears});
+        this.props.setYearsCallback(allYears.filter(x => x.checked).map(x => x.year));
     }
     
     render() {

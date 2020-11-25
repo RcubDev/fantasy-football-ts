@@ -2,6 +2,7 @@ import React from "react";
 import LeagueYearSelector from "../LeagueSharedComponents/LeagueYearSelector";
 import { options } from '../../../Data/LeagueStatisticsStaticData/PointsForStaticData';
 import { SelectButton } from 'primereact/selectbutton';
+import { GetSeasonChartData, GetWeekByWeekChartData } from "../../../BusinessLogic/PointsFor/PointsForService";
 type PointsForProps = {
     internalLeaugeId: number
 }
@@ -24,14 +25,17 @@ class PointsFor extends React.Component<PointsForProps, PointsForState> {
             selectedOption: 'seasontotal'
         }
     }
-
-
+    
+    setSelectedYears = (years: number[]) => {
+        this.setState({selectedYears: years});
+    }
 
     render() {
+        GetSeasonChartData(this.props.internalLeaugeId, this.state.selectedYears);
         return (
             <div style={{marginLeft: 100}}>
                 <div style={SepartorStyle}>
-                    <LeagueYearSelector internalLeagueId={this.props.internalLeaugeId} filterLeagues={() => {console.log('filtered')}}></LeagueYearSelector>
+                    <LeagueYearSelector internalLeagueId={this.props.internalLeaugeId} setYearsCallback={this.setSelectedYears}></LeagueYearSelector>
                 </div>
                 <div style={{marginLeft: 10, marginTop: 20}}>
                     {/* chart options here */}
