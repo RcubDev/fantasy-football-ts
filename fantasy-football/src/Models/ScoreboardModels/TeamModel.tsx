@@ -1,8 +1,8 @@
-import { ManagerModel } from "./ManagerModel";
+import { ManagerModel } from "../SharedModels/ManagerModel";
 import { PointsModel } from "./PointsModel";
 import { ProjectedPointsModel } from "./ProjectedPoints";
 import { RosterAddsModel } from "./RosterAddsModel";
-import { TeamLogoModel } from "./TeamLogoModel";
+import { TeamLogoModel } from "../SharedModels/TeamLogoModel";
 
 export interface TeamModel {
     team_key: string;

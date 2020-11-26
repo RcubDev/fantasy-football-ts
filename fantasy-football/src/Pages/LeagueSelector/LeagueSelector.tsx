@@ -6,7 +6,7 @@ import leagues from '../../Data/LeaguesData';
 import "./LeagueSelector.css";
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import _ from 'lodash';
-import { LeagueData } from "../../Models/LeagueData";
+import { LeagueDataModel } from "../../Models/LeagueData";
 
 class LeagueSelector extends React.Component<RouteComponentProps> {
 
@@ -19,7 +19,7 @@ class LeagueSelector extends React.Component<RouteComponentProps> {
   ReadAllLeagueInfo() {
     let leaguesGrid: JSX.Element[] = [];
     let info = _.uniqBy(leagues, 'internalId');
-    info.forEach((element: LeagueData) => {
+    info.forEach((element: LeagueDataModel) => {
       let item = (
         <div className="hover-div p-col p-shadow-10" style={{ margin: 25, padding:0, cursor: "pointer" }} onClick={() => this.nextPath(`/League/${element.internalId}`)}>
           <div style={{display:"flex", alignItems:"center", textAlign: "center", justifyContent: "center", width:"100%", height:350}} className="hover-div-text">

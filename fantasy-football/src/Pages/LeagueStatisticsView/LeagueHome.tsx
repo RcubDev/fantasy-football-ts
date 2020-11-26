@@ -6,7 +6,7 @@ import leagues from "../../Data/LeaguesData";
 import "./LeagueHome.css";
 import { withRouter, RouteComponentProps } from "react-router-dom";
 import _ from "lodash";
-import { LeagueData } from "../../Models/LeagueData";
+import { LeagueDataModel } from "../../Models/LeagueData";
 import { Menu } from "primereact/menu";
 import { MenuItem } from "primereact/api";
 import items from "../../Data/LeagueMenu";
@@ -35,7 +35,7 @@ class LeagueHome extends React.Component<
 
   componentDidMount() {
     console.log(this.props.match.params.internalLeagueId);
-    this.setState({viewType: this.props.match.params.viewType.toLowerCase()});
+    this.setState({viewType: this.props.match.params.viewType?.toLowerCase()});
   }
 
   setMenuItemCallbacks(items: Array<MenuItem>): Array<MenuItem> {
@@ -95,9 +95,11 @@ class LeagueHome extends React.Component<
   render() {
     let menuItems = this.setMenuItemCallbacks(items);
     return (
-      <div>
+      <div style={{width: '100%', display: 'flex'}}>
         <Menu model={menuItems}></Menu>
-        {this.renderStatComponent(this.state.viewType)}
+        <div>                    
+            {this.renderStatComponent(this.state.viewType)}             
+        </div>        
       </div>
     );
   }
