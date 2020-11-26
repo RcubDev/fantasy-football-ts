@@ -10,7 +10,10 @@ import { LeagueDataModel } from "../../Models/LeagueData";
 import { Menu } from "primereact/menu";
 import { MenuItem } from "primereact/api";
 import items from "../../Data/LeagueMenu";
-import PointsFor from "./LeagueStatisticsComponents/LeaguePointsFor";
+import PointsFor from "./LeagueStatisticsComponents/PointsFor/LeaguePointsFor";
+import LeaguePointsAgainst from "./LeagueStatisticsComponents/PointsAgainst/LeaguePointsAgainst";
+import LeagueLosses from "./LeagueStatisticsComponents/Losses/LeagueLosses";
+import LeagueWins from "./LeagueStatisticsComponents/Wins/LeagueWins";
 
 type LeagueHomeParams = {
   internalLeagueId: string;
@@ -67,26 +70,17 @@ class LeagueHome extends React.Component<
       case "pointsfor":
         return <PointsFor internalLeaugeId={+this.props.match.params.internalLeagueId}></PointsFor>        
       case "pointsagainst":
-        console.log("here");
-        break;
+        return <LeaguePointsAgainst internalLeaugeId={+this.props.match.params.internalLeagueId}></LeaguePointsAgainst>
       case "pointsleftonbench":
-        console.log("here");
-        break;
+        return <h1>UNDER CONSTRUCTION</h1>
       case "wins":
-        console.log("here");
-        break;
+        return <LeagueWins internalLeaugeId={+this.props.match.params.internalLeagueId}></LeagueWins>
       case "losses":
-        console.log("here");
-        break;
-      case "pointsfor":
-        console.log("here");
-        break;
-      case "pointsfor":
-        console.log("here");
-        break;
-      case "pointsfor":
-        console.log("here");
-        break;
+        return <LeagueLosses internalLeaugeId={+this.props.match.params.internalLeagueId}></LeagueLosses>
+      case "transactions":
+        return <h1>UNDER CONSTRUCTION</h1>
+      case "trades":
+        return <h1>UNDER CONSTRUCTION</h1>      
       default:
         break;      
     }
