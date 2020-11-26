@@ -1,11 +1,11 @@
 import React from "react";
-import LeagueYearSelector from "../LeagueSharedComponents/LeagueYearSelector";
-import { options, sortOptions } from '../../../Data/LeagueStatisticsStaticData/PointsForStaticData';
+import LeagueYearSelector from "../../LeagueSharedComponents/LeagueYearSelector";
+import { options, sortOptions } from '../../../../Data/LeagueStatisticsStaticData/PointsForStaticData';
 import { SelectButton } from 'primereact/selectbutton';
-import { CreateSeasonChart, CreateSeasonChartOptions, CreateTopWeeksChartData, CreateTopWeeksChartOptions, GetSeasonChartData, GetTopWeeksData } from "../../../BusinessLogic/PointsFor/PointsForService";
+import { CreateSeasonChart, CreateSeasonChartOptions, CreateTopWeeksChartData, CreateTopWeeksChartOptions, GetSeasonChartData, GetTopWeeksData } from "../../../../BusinessLogic/PointsFor/PointsForService";
 import { Chart } from 'primereact/chart'
-import { ChartData, ChartOptions, NestedTickOptions } from "chart.js";
-import { StandingModel, StandingModelExtended } from "../../../Models/StandingsModels/StandingModel";
+import { ChartData, ChartOptions } from "chart.js";
+
 type PointsForProps = {
     internalLeaugeId: number
 }
