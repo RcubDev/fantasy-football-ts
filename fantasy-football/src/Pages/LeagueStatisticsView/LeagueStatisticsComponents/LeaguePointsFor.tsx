@@ -2,7 +2,7 @@ import React from "react";
 import LeagueYearSelector from "../LeagueSharedComponents/LeagueYearSelector";
 import { options, sortOptions } from '../../../Data/LeagueStatisticsStaticData/PointsForStaticData';
 import { SelectButton } from 'primereact/selectbutton';
-import { CreateSeasonChart, CreateSeasonChartOptions, GetSeasonChartData, GetTopWeeksData } from "../../../BusinessLogic/PointsFor/PointsForService";
+import { CreateSeasonChart, CreateSeasonChartOptions, CreateTopWeeksChartData, CreateTopWeeksChartOptions, GetSeasonChartData, GetTopWeeksData } from "../../../BusinessLogic/PointsFor/PointsForService";
 import { Chart } from 'primereact/chart'
 import { ChartData, ChartOptions, NestedTickOptions } from "chart.js";
 import { StandingModel, StandingModelExtended } from "../../../Models/StandingsModels/StandingModel";
@@ -40,15 +40,16 @@ class PointsFor extends React.Component<PointsForProps, PointsForState> {
         let chartData: ChartData = {};
         if(this.state.selectedChartType === 'seasontotal') {
             let data = GetSeasonChartData(this.props.internalLeaugeId, this.state.selectedYears, this.state.sortBy);
-            let chartData = CreateSeasonChart(data);            
+            chartData = CreateSeasonChart(data);            
             chartOptions = CreateSeasonChartOptions();                    
-            return (<Chart type='bar' data={chartData} options={chartOptions} style={{width: 1000}}/>)
         }
         else if(this.state.selectedChartType === 'topweeks') {
             let data = GetTopWeeksData(this.props.internalLeaugeId, this.state.selectedYears, this.state.sortBy);
-            //chartData = ;
-            let chartOptions: ChartOptions = {};
+            chartData = CreateTopWeeksChartData(data);
+            chartOptions = CreateTopWeeksChartOptions();
         }
+        return (<Chart type='bar' data={chartData} options={chartOptions} style={{width: 1000}}/>)
+
     }    
 
     render() {

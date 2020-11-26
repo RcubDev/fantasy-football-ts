@@ -90,10 +90,60 @@ export function CreateSeasonChartOptions(): ChartOptions {
     return chartOptions;
 }
 
-export function CreateTopWeeksChartData(): ChartData {
-    return {};
+export function CreateTopWeeksChartData(data: MatchupTeamPointsModel[]): ChartData {
+    let callbackItems: ChartOptionsCallbackModel[] = data.map(x => (
+        {
+            label: 'Team',
+            labelValue: x.team.name,
+            xAxisValue: x.team.name,
+            bodyItems: [
+                {
+                    label: 'Points For',
+                    value: x.team.points.total
+                },
+                {
+                    label: 'Year',
+                    value: x.year
+                }, 
+                {
+                    label: 'Week',
+                    value: x.week
+                }
+            ]
+        })
+    );
+    let chartData: ChartData = {
+        labels: callbackItems.map(x => JSON.stringify(x)),
+        datasets: [
+            {
+                label: 'Points For',
+                data: data.map(x => +x.team.points.total),
+                fill: '#4bc0c0',
+                borderColor: '#4bc0c0',                        
+            }
+        ]
+    };
+    return chartData;
 }
-
+//This is a duplicate of the chart options above. TODO: Change this to a common method.
 export function CreateTopWeeksChartOptions(): ChartOptions {
-    return {};
+    let chartOptions: ChartOptions = {
+        tooltips: {
+            callbacks: {
+                label: LabelCallback(),
+                afterBody:  AfterBodyCallback(),
+                title: SetEmptyTitleCallback()
+            }
+        },
+        //This controls the x-axis labels
+        scales: {
+            xAxes: [{
+                ticks: {
+                    // Include a dollar sign in the ticks
+                    callback: xAxisCallback()
+                }
+            }]
+        }
+    };
+    return chartOptions;
 }
