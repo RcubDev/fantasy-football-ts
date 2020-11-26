@@ -3,11 +3,11 @@ import { GetLeagueIdsFromInteralLeagueId } from "./YahooDataHelpers";
 import { ensure } from "./TypeScriptHelpers";
 import scoreboardData from '../Data/YahooData/ScoreboardData';
 import standings from '../Data/YahooData/StandingsData';
+import transactions from '../Data/YahooData/TransactionData';
 import { MatchupTeamPointsModel } from "../Models/BusinessLogicModels/MatchupTeamPointsModel";
 import { StandingModel, StandingModelExtended } from "../Models/StandingsModels/StandingModel";
-export function GetScoreboardsForYear() {
-
-}
+import LeagueYearSelector from "../Pages/LeagueStatisticsView/LeagueSharedComponents/LeagueYearSelector";
+import { TransactionModel } from "../Models/TransactionModels/TransactionModel";
 
 export function GetScoreboardsForYears(years: number[], internalLeagueId: number): ScoreboardModelExtended[] {
     let scoreBoards: ScoreboardModelExtended[] = [];
@@ -31,7 +31,7 @@ export function GetStandingsForYears(years: number[], internalLeagueId: number):
     return selectedStandings;
 }
 
-export function CreateMatchupTeamPointsArray(selectedYears: number[], internalLeagueId: number,) {
+export function CreateMatchupTeamPointsArray(selectedYears: number[], internalLeagueId: number) {
     let matchupsExtended = GetScoreboardsForYears(selectedYears, internalLeagueId).flatMap(x => ({matchups: x.matchups, leagueId: x.leagueId, year: x.year}));
 
     let weekAndTeams: MatchupTeamPointsModel[] = [];
@@ -49,4 +49,19 @@ export function CreateMatchupTeamPointsArray(selectedYears: number[], internalLe
         });
     });
     return weekAndTeams;
+}
+
+export function GetTransactionsForYears(selectedYears: number[], internalLeagueId: number) {
+    let leagueIds = GetLeagueIdsFromInteralLeagueId(internalLeagueId);
+    let transactionsFiltered: TransactionModel[] = [];
+    selectedYears.forEach(year => {
+        let leagueId = ensure(leagueIds.find(x => x.year === year)).yahooLeagueId;
+        let transactionsForYear: TransactionModel[] = transactions.filter(x => x.league_id === leagueId).flatMap(x => x.transactions)
+        transactionsFiltered = transactionsFiltered.concat(transactionsForYear);
+    });
+    return transactionsFiltered;
+}
+
+export function GetTradesForYears(selectedYears: number[], internalLeagueId: number) {
+    return GetTransactionsForYears(selectedYears, internalLeagueId).filter(x => x.tradee_team_key !== undefined);
 }
