@@ -4,6 +4,7 @@ import { ensure } from "./TypeScriptHelpers";
 import scoreboardData from '../Data/YahooData/ScoreboardData';
 import standings from '../Data/YahooData/StandingsData';
 import { MatchupTeamPointsModel } from "../Models/BusinessLogicModels/MatchupTeamPointsModel";
+import { StandingModel, StandingModelExtended } from "../Models/StandingsModels/StandingModel";
 export function GetScoreboardsForYear() {
 
 }
@@ -19,13 +20,13 @@ export function GetScoreboardsForYears(years: number[], internalLeagueId: number
     return scoreBoards;
 }
 
-export function GetStandingsForYears(years: number[], internalLeagueId: number) {
+export function GetStandingsForYears(years: number[], internalLeagueId: number): StandingModelExtended[] {
     let leagueIds = GetLeagueIdsFromInteralLeagueId(internalLeagueId);
-    let selectedStandings: any = [];
+    let selectedStandings: StandingModelExtended[] = [];
     years.forEach(year => {
         let leagueId = ensure(leagueIds.find(x => x.year === year)).yahooLeagueId;
-        let yearStandings = standings.filter(x => x.league_id === leagueId).map(x => x.standings);
-        selectedStandings.concat(yearStandings);
+        let yearStandings: StandingModelExtended[] = standings.filter(x => x.league_id === leagueId).flatMap(x => x.standings).map(x => ({...x, year:`${year}`, leagueId}));
+        selectedStandings = selectedStandings.concat(yearStandings);
     });
     return selectedStandings;
 }
