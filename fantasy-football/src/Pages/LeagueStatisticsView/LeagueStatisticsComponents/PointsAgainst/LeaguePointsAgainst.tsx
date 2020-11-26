@@ -2,10 +2,9 @@ import React from "react";
 import LeagueYearSelector from "../../LeagueSharedComponents/LeagueYearSelector";
 import { options, sortOptions } from '../../../../Data/LeagueStatisticsStaticData/PointsForStaticData';
 import { SelectButton } from 'primereact/selectbutton';
-import { CreateSeasonChart, CreateSeasonChartOptions, CreateTopWeeksChartData, CreateTopWeeksChartOptions, GetSeasonChartData, GetTopWeeksData } from "../../../../BusinessLogic/PointsFor/PointsForService";
 import { Chart } from 'primereact/chart'
 import { ChartData, ChartOptions } from "chart.js";
-import { CreatePointsAgainstChartData, CreatePointsAgainstChartOptions, CreatePointsAgainstData } from "../../../../BusinessLogic/PointsAgainst/PointsAgainstService";
+import { CreatePointsAgainstChartData, CreatePointsAgainstChartOptions, CreatePointsAgainstData } from "../../../../BusinessLogic/League/PointsAgainstService";
 
 type PointsAgainstProps = {
     internalLeaugeId: number
@@ -21,7 +20,7 @@ const SepartorStyle = {
     marginTop: 20
 }
 
-class PointsAgainst extends React.Component<PointsAgainstProps, PointsAgainstState> {
+class LeaguePointsAgainst extends React.Component<PointsAgainstProps, PointsAgainstState> {
     constructor(props: PointsAgainstProps) {
         super(props);
         this.state = {
@@ -63,4 +62,4 @@ class PointsAgainst extends React.Component<PointsAgainstProps, PointsAgainstSta
     }
 }
 
-export default PointsAgainst;
+export default LeaguePointsAgainst;

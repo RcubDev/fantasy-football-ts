@@ -2,17 +2,16 @@ import React from "react";
 import LeagueYearSelector from "../../LeagueSharedComponents/LeagueYearSelector";
 import { options, sortOptions } from '../../../../Data/LeagueStatisticsStaticData/PointsForStaticData';
 import { SelectButton } from 'primereact/selectbutton';
-import { CreateSeasonChart, CreateSeasonChartOptions, CreateTopWeeksChartData, CreateTopWeeksChartOptions, GetSeasonChartData, GetTopWeeksData } from "../../../../BusinessLogic/League/PointsForService";
 import { Chart } from 'primereact/chart'
 import { ChartData, ChartOptions } from "chart.js";
+import { CreateWinsChartData, CreateWinsChartOptions, GetWinsChartData } from "../../../../BusinessLogic/League/WinsService";
 
-type PointsForProps = {
+type LeagueWinsProps = {
     internalLeaugeId: number
 }
 
-type PointsForState = {
+type LeagueWinsState = {
     selectedYears: number[],
-    selectedChartType: string,
     sortBy: number
 }
 
@@ -21,12 +20,11 @@ const SepartorStyle = {
     marginTop: 20
 }
 
-class PointsFor extends React.Component<PointsForProps, PointsForState> {
-    constructor(props: PointsForProps) {
+class LeagueWins extends React.Component<LeagueWinsProps, LeagueWinsState> {
+    constructor(props: LeagueWinsProps) {
         super(props);
         this.state = {
             selectedYears: [],
-            selectedChartType: 'seasontotal',
             sortBy: 1
         }
     }
@@ -36,18 +34,10 @@ class PointsFor extends React.Component<PointsForProps, PointsForState> {
     }
 
     displayChart() {
-        let chartOptions: ChartOptions = {};
-        let chartData: ChartData = {};
-        if(this.state.selectedChartType === 'seasontotal') {
-            let data = GetSeasonChartData(this.props.internalLeaugeId, this.state.selectedYears, this.state.sortBy);
-            chartData = CreateSeasonChart(data);            
-            chartOptions = CreateSeasonChartOptions();                    
-        }
-        else if(this.state.selectedChartType === 'topweeks') {
-            let data = GetTopWeeksData(this.props.internalLeaugeId, this.state.selectedYears, this.state.sortBy);
-            chartData = CreateTopWeeksChartData(data);
-            chartOptions = CreateTopWeeksChartOptions();
-        }
+        let data = GetWinsChartData(this.props.internalLeaugeId, this.state.selectedYears, this.state.sortBy);
+        let chartData: ChartData = CreateWinsChartData(data);            
+        let chartOptions: ChartOptions = CreateWinsChartOptions();
+
         return (<Chart type='bar' data={chartData} options={chartOptions} style={{width: 1000}}/>)
 
     }    
@@ -61,7 +51,6 @@ class PointsFor extends React.Component<PointsForProps, PointsForState> {
                 </div>
                 <div style={{marginLeft: 10, marginTop: 20}}>
                     {/* chart options here */}
-                    <SelectButton optionLabel='label' optionValue='value' value={this.state.selectedChartType} options={options} onChange={(e) => {this.setState({ selectedChartType: e.value})}} ></SelectButton>
                     <SelectButton optionLabel='label' optionValue='value' value={this.state.sortBy} options={sortOptions} onChange={(e) => {this.setState({ sortBy: e.value})}} ></SelectButton>
                 </div>
                 <div>
@@ -73,4 +62,4 @@ class PointsFor extends React.Component<PointsForProps, PointsForState> {
     }
 }
 
-export default PointsFor;
+export default LeagueWins;

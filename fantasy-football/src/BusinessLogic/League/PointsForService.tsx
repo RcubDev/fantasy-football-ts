@@ -31,7 +31,7 @@ export function GetTopWeeksData(internalLeagueId: number, selectedYears: number[
 }
 
 export function CreateSeasonChart(standings: StandingModelExtended[]): ChartData {
-    //Changes the tool tip based on this model.
+    //Changes the tool tip based on this model. The chart options callbacks use this.    
     let callbackItems: ChartOptionsCallbackModel[] = standings.map(x => (
         {
             label: 'Team',
@@ -80,8 +80,7 @@ export function CreateSeasonChartOptions(): ChartOptions {
         //This controls the x-axis labels
         scales: {
             xAxes: [{
-                ticks: {
-                    // Include a dollar sign in the ticks
+                ticks: {                    
                     callback: xAxisCallback()
                 }
             }]

@@ -3,6 +3,9 @@ import { AfterBodyCallback, ChartOptionsCallbackModel, LabelCallback, SetEmptyTi
 import { GetStandingsForYears } from "../../Helpers/LeagueHelpers";
 import { StandingModelExtended } from "../../Models/StandingsModels/StandingModel";
 
+//This function is almost the same in all pages that use the standings data.
+//TODO: Refactor to use a callback for the sort and make a method that is reusable.
+//TODO: Add the ability to increase the data set size.
 export function CreatePointsAgainstData(internalLeagueId: number, selectedYears: number[], sort: number): StandingModelExtended[] {
     let standings = GetStandingsForYears(selectedYears, internalLeagueId);
 
@@ -21,7 +24,7 @@ export function CreatePointsAgainstChartData(standings: StandingModelExtended[])
             bodyItems: [
                 {
                     label: 'Points Against',
-                    value: `${x.standings.points_against}`
+                    value: `${x.standings.points_against.toFixed(2)}`
                 },
                 {
                     label: 'Year',
